@@ -1,0 +1,21 @@
+{
+  "name": "woocommerce-cat",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "@wpackio/scripts": "^6.4.0",
+    "postcss": "^8.4.14",
+    "sass": "^1.53.0"
+  },
+  "scripts": {
+    "bootstrap": "wpackio-scripts bootstrap",
+    "build": "wpackio-scripts build",
+    "start": "wpackio-scripts start",
+    "archive": "wpackio-scripts pack"
+  },
+  "dependencies": {
+    "@master/css": "^1.35.6",
+    "@wpackio/entrypoint": "^6.4.0",
+    "alpinejs": "^3.10.2"
+  }
+}

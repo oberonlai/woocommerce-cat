@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'pretty_version' => '1.0.0+no-version-set',
+        'version' => '1.0.0.0',
+        'type' => 'project',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'reference' => NULL,
+        'name' => 'oberonlai/woocommerce-cat',
+        'dev' => true,
+    ),
+    'versions' => array(
+        'a7/autoload' => array(
+            'pretty_version' => '2.1',
+            'version' => '2.1.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../a7/autoload',
+            'aliases' => array(),
+            'reference' => '2d4a63c88150869883e43ad04e04b81125b55fd9',
+            'dev_requirement' => false,
+        ),
+        'oberonlai/woocommerce-cat' => array(
+            'pretty_version' => '1.0.0+no-version-set',
+            'version' => '1.0.0.0',
+            'type' => 'project',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'reference' => NULL,
+            'dev_requirement' => false,
+        ),
+        'wpackio/enqueue' => array(
+            'pretty_version' => '3.4.0',
+            'version' => '3.4.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../wpackio/enqueue',
+            'aliases' => array(),
+            'reference' => '8a5604f5ab3bd5f000e503dda02603e15e534d47',
+            'dev_requirement' => false,
+        ),
+    ),
+);
