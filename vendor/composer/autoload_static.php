@@ -15,12 +15,20 @@ class ComposerStaticInit04c4ac89f8c1d97b4797bedff4522b7f
         array (
             'WPackio\\' => 8,
         ),
+        'A' => 
+        array (
+            'Automattic\\WooCommerce\\' => 23,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'WPackio\\' => 
         array (
             0 => __DIR__ . '/..' . '/wpackio/enqueue/inc',
+        ),
+        'Automattic\\WooCommerce\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/automattic/woocommerce/src/WooCommerce',
         ),
     );
 

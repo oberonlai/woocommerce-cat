@@ -3,7 +3,8 @@
     "type": "project",
     "require": {
         "a7/autoload": "^2.1",
-        "wpackio/enqueue": "^3.4"
+        "wpackio/enqueue": "^3.4",
+        "automattic/woocommerce": "^3.1"
     },
     "license": "GPL",
     "authors": [

@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'WPackio\\' => array($vendorDir . '/wpackio/enqueue/inc'),
+    'Automattic\\WooCommerce\\' => array($vendorDir . '/automattic/woocommerce/src/WooCommerce'),
 );
