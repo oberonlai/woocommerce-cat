@@ -1,6 +1,6 @@
 <?php
 
-add_shortcode( 'woocommerce-cat', 'woocat_shortcode' );
+add_shortcode( 'woocat-checkout', 'woocat_shortcode' );
 function woocat_shortcode( $atts ) {
 	ob_start();
 	//$a = shortcode_atts( array(

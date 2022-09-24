@@ -45,7 +45,7 @@ add_action(
 	'template_redirect',
 	function() {
 		global $post;
-		if ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'woocommerce-cat' ) ) {
+		if ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'woocat-checkout' ) ) {
 			$enqueue = new \WPackio\Enqueue( 'woocommerceCat', 'assets/dist', '1.0.0', 'plugin', __FILE__ );
 			$enqueue->enqueue( 'app', 'main', array() );
 		}
@@ -71,65 +71,3 @@ add_action(
 // echo wp_create_nonce( 'wc_store_api' );
 // }
 // );
-
-// add_action(
-// 'init',
-// function() {
-// $store_url    = 'https://wc.test';
-// $endpoint     = '/wc-auth/v1/authorize';
-// $params       = array(
-// 'app_name'     => 'woocommerce-cat',
-// 'scope'        => 'read_write',
-// 'user_id'      => get_current_user_id(),
-// 'return_url'   => 'https://wc.test/return_url',
-// 'callback_url' => 'https://wc.test/callback_url',
-// );
-// $query_string = http_build_query( $params );
-// echo $store_url . $endpoint . '?' . $query_string;
-// }
-// );
-
-
-//$options = array(
-//	'method'  => 'POST',
-//	'timeout' => 60,
-//	'headers' => array(
-//		'Content-Type'  => 'application/json',
-//		'Authorization' => 'Basic ' . base64_encode( CONSUMER_KEY . ':' . CONSUMER_SECRET ),
-//	),
-//);
-
-//$response = wp_remote_request( 'https://wc.test/wp-json/wc/v3/customers', $options );
-//print_r( $response );
-
-//$data = array(
-//	'email'      => 'm615926@gmail.com',
-//	'first_name' => 'Oberon',
-//	'last_name'  => 'Lai',
-//	'username'   => 'm615926',
-//	'billing'    => array(
-//		'first_name' => 'Oberon',
-//		'last_name'  => 'Lai',
-//		'company'    => '',
-//		'address_1'  => '中山路一段',
-//		'address_2'  => '',
-//		'city'       => '新北市',
-//		'state'      => '',
-//		'postcode'   => '123',
-//		'country'    => 'TW',
-//		'email'      => 'm615926@gmail.com',
-//		'phone'      => '0912345678',
-//	),
-//);
-
-//print_r( $woocommerce->post( 'customers', $data ) );
-
-//$data = array(
-//	'first_name' => 'Huang',
-//	'billing'    => array(
-//		'first_name' => 'Emma',
-//	),
-//);
-
-//$response = $woocommerce->put( 'customers/25', $data );
-//print_r( $response );
