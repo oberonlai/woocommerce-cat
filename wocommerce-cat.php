@@ -42,15 +42,26 @@ require_once WOOCAT_PLUGIN_DIR . 'vendor/autoload.php';
 \A7\autoload( WOOCAT_PLUGIN_DIR . 'src' );
 
 add_action(
-	'template_redirect',
+	'wp_enqueue_scripts',
 	function() {
-		global $post;
-		if ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'woocat-checkout' ) ) {
-			$enqueue = new \WPackio\Enqueue( 'woocommerceCat', 'assets/dist', '1.0.0', 'plugin', __FILE__ );
-			$enqueue->enqueue( 'app', 'main', array() );
-		}
-	}
+		wp_enqueue_script( 'alpine', WOOCAT_PLUGIN_URL . 'assets/src/vendor/alpine.js', array(), '3.1.0', false );
+		$enqueue = new \WPackio\Enqueue( 'woocommerceCat', 'assets/dist', '1.0.0', 'plugin', __FILE__ );
+		$enqueue->enqueue( 'app', 'main', array( 'in_footer' => false ) );
+	},
 );
+
+add_filter(
+	'script_loader_tag',
+	function ( $tag, $handle ) {
+		if ( 'alpine' !== $handle ) {
+			return $tag;
+		}
+		return str_replace( ' src', ' defer src', $tag );
+	},
+	10,
+	2
+);
+
 
 /**
  * Extend Store API

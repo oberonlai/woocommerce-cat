@@ -1,10 +1,15 @@
 import '@master/css';
 import './main.scss';
-import Alpine from 'alpinejs';
-import Cart from './template/cart';
-window.Alpine = Alpine;
-Alpine.start()
+//import Alpine from 'alpinejs';
+import component from 'alpinejs-component'
+import cart from './template/cart';
 
 document.addEventListener('alpine:init',() => {
-	Alpine.data('cart', Cart);
+	Alpine.data('cart', cart);
 })
+
+window.addEventListener('DOMContentLoaded', () => {
+	window.Alpine = Alpine;
+	Alpine.start()
+})
+
