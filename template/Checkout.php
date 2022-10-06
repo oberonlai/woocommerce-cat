@@ -1,6 +1,10 @@
 <div class="w:100% max-w:890 bg:white">
 <!--<Cart>-->
-	<div x-data="cart">
+	<div x-data="cart(
+		'<?php echo esc_attr( home_url() ); ?>',
+		'<?php echo esc_attr( wp_create_nonce( 'wc_store_api' ) ) ?>')
+		">
+		<button @click="addToCart(20)">加入購物車</button>
 		<h2 class="f:16 color:fade-40 p:5 flex ai:center">
 			<svg class="w:18 mr:5" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path fill-rule="evenodd" clip-rule="evenodd"
