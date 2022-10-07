@@ -10,6 +10,7 @@ export default (homeUrl,nonce) => ({
 	increaseQty() {
 		this.qty++;
 		// TODO:檢查商品庫存
+		// TODO:各商品的購物車數量
 
 	},
 
@@ -22,9 +23,9 @@ export default (homeUrl,nonce) => ({
 		alert('ddd')
 	},
 
-	addToCart(producId) {
+	addToCart(productId) {
 		this.reqJSON(`${this.routeCart}/add-item`,'POST',{
-			'id': producId,
+			'id': productId,
     		'quantity': 1
 		})
 	},
@@ -44,15 +45,15 @@ export default (homeUrl,nonce) => ({
 		})
 	},
 
-	reqJSON(route, reqMethod, reqBody) {
+	reqJSON(route, method, body) {
 		fetch(route, {
-			method: reqMethod,
+			method,
 			headers: {
 				"Content-Type": "application/json",
 				"Accept": "application/json",
 				'Nonce': this.nonce
 			},
-			body: JSON.stringify(reqBody)
+			body: JSON.stringify(body)
 		}).then(resp => {
 			return resp.json();
 		}).then(data => {
