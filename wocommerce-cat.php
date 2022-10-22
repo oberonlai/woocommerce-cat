@@ -44,6 +44,7 @@ require_once WOOCAT_PLUGIN_DIR . 'vendor/autoload.php';
 add_action(
 	'wp_enqueue_scripts',
 	function() {
+		wp_enqueue_script( 'alpine-mask', WOOCAT_PLUGIN_URL . 'assets/src/vendor/alpine-mask.js', array(), '1.0.0', false );
 		wp_enqueue_script( 'alpine', WOOCAT_PLUGIN_URL . 'assets/src/vendor/alpine.js', array(), '3.1.0', false );
 		$enqueue = new \WPackio\Enqueue( 'woocommerceCat', 'assets/dist', '1.0.0', 'plugin', __FILE__ );
 		$enqueue->enqueue( 'app', 'main', array( 'in_footer' => false ) );
@@ -53,7 +54,7 @@ add_action(
 add_filter(
 	'script_loader_tag',
 	function ( $tag, $handle ) {
-		if ( 'alpine' !== $handle ) {
+		if ( strpos( $handle, 'alpine' ) === false ) {
 			return $tag;
 		}
 		return str_replace( ' src', ' defer src', $tag );

@@ -1,51 +1,64 @@
-export default (homeUrl,nonce) => ({
+export default (homeUrl, nonce) => ({
 	nonce,
-	isCartLoading:true,
-	cart:[],
+	isCartLoading: true,
+	cart: [],
 	routeCart: homeUrl + '/wp-json/wc/store/v1/cart',
 	routeChecout: homeUrl + '/wp-json/wc/store/v1/checkout',
 	init() {
 		this.getJSON(this.routeCart).then(data => this.cart = data)
 	},
 
-	updateQty(increOrDecre,itemKey,quantity,quantity_limits=null,el=null) {
-		let qty;
-		switch (increOrDecre) {
+	updateQty(type, itemKey, quantity, quantity_limits = null, el = null) {
+		let qty
+		quantity = parseInt(quantity),
+			quantity_limits = parseInt(quantity_limits);
+		switch (type) {
 			case 'decre':
-				qty = ( quantity === 1 ) ? 1 : quantity - 1
+				qty = (quantity === 1) ? 1 : quantity - 1
 				el.parentElement.querySelector('input')._x_model.set(qty)
 				break;
 			case 'incre':
-				qty = ( quantity >= quantity_limits ) ? quantity : quantity + 1	 	
+				qty = (quantity >= quantity_limits) ? quantity_limits : quantity + 1
 				el.parentElement.querySelector('input')._x_model.set(qty)
 				break;
 			case 'change':
-				qty = quantity
+				qty = (quantity >= quantity_limits) ? quantity_limits : quantity;
+				(qty) ? el._x_model.set(qty) : el._x_model.set(1)
 				break;
 			default:
 				break;
 		}
-		
-		this.reqJSON(`${this.routeCart}/update-item`,'POST',{
-			'key': itemKey,
-			'quantity': qty,
-		}).then(data=>{ this.cart.items_count = data.items_count })
+
+		if (qty) {
+			this.reqJSON(`${this.routeCart}/update-item`, 'POST', {
+				'key': itemKey,
+				'quantity': qty,
+			}).then(data => { this.cart.items_count = data.items_count })
+		}
+
 
 	},
 
-	removeItem(itemKey,el) {
+	// 檢查庫存
+	checkStock(type, itemKey) {
+		stockHint = document.getElementById(`stockHint${itemKey}`)
+
+
+	},
+
+	removeItem(itemKey, el) {
 		el.parentElement.style.opacity = "0.5";
-		this.reqJSON(`${this.routeCart}/remove-item`,'POST',{
+		this.reqJSON(`${this.routeCart}/remove-item`, 'POST', {
 			'key': itemKey,
-		}).then(data=>this.cart = data)
+		}).then(data => this.cart = data)
 	},
-	
+
 	async getJSON(route) {
 		try {
 			let response = await fetch(route);
-	    	return await response.json();
+			return await response.json();
 		}
-		catch(err){
+		catch (err) {
 			return err
 		}
 	},
@@ -61,14 +74,16 @@ export default (homeUrl,nonce) => ({
 				},
 				body: JSON.stringify(body)
 			});
-	    	return await response.json();
+			return await response.json();
 		}
-		catch(err){
+		catch (err) {
 			return err
 		}
 	},
 
 	validateInt(evt) {
+		// 檢查庫存
+
 		var theEvent = evt || window.event;
 		if (theEvent.type === 'paste') {
 			key = event.clipboardData.getData('text/plain');
@@ -77,10 +92,10 @@ export default (homeUrl,nonce) => ({
 			key = String.fromCharCode(key);
 		}
 		var regex = /[0-9]|\./;
-		if( !regex.test(key) ) {
-		  theEvent.returnValue = false;
-		  if(theEvent.preventDefault) theEvent.preventDefault();
+		if (!regex.test(key)) {
+			theEvent.returnValue = false;
+			if (theEvent.preventDefault) theEvent.preventDefault();
 		}
-	  }
+	}
 
 })

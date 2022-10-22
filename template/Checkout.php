@@ -32,7 +32,7 @@
 					<div>小計</div>
 					<div>&nbsp;</div>
 				</div>
-				<template x-for="(item, index) in cart.items" :key="item.id">
+				<template x-for="item in cart.items" :key="item.id">
 					<div>
 						<div class="flex jc:space-between ai:center">
 							<div class="w:38% aspect:4/3 r:4) bg:cover" :style="`background-image:url(${item.images[0].src})`">
@@ -44,13 +44,16 @@
 							</div>
 						</div>
 						<div class="d:none d:block@sm" x-text="item.prices.currency_symbol+new Intl.NumberFormat().format(item.prices.price)"></div>
-						<div class="mt:10 mt:0@sm float:left">
+						<div class="mt:10 mt:0@sm float:left rel">
 							<div class="
-							d:flex flex-wrap:wrap ai:center
+							d:flex flex-wrap:wrap ai:center rel
 							{w:32;h:32;f:20;b:1px|solid|fade-80;bg:none;cursor:pointer;r:4;t:center}>div">
 								<div type="button" class="bg:fade-90:hover" :class="item.quantity === 1 ? 'pointer-events:none opacity:.5':''" @click.prevent="updateQty('decre',item.key,item.quantity,'',$el)">-</div>
-								<input class="bg:fade-90! f:14 w:40 b:1px|solid|fade-80 h:36 t:center mx:7 r:4" type="text" x-model="item.quantity" @change="updateQty('change',item.key,$el.value)" @keypress="validateInt(event)" />
+								<input class="bg:fade-90! f:14 w:40 b:1px|solid|fade-80 h:36 t:center mx:7 r:4" type="text" x-model="item.quantity" @keyup="updateQty('change',item.key,$el.value,item.quantity_limits.maximum,$el);" x-mask="999" />
 								<div type="button" class="bg:fade-90:hover" :class="item.quantity >= item.quantity_limits.maximum ? 'pointer-events:none opacity:.5':''" @click.prevent="updateQty('incre',item.key,item.quantity,item.quantity_limits.maximum,$el)">+</div>
+								<template x-if="item.quantity_limits.maximum!==9999">
+									<p :id="`stockHint${item.key}`" class="abs d:none bottom:-38 f:12 f:red t:center w:100%">庫存上限 <span x-text="item.quantity_limits.maximum"></span></p>	
+								</template>
 							</div>
 						</div>
 						<div class="float:right f:24 f:red-50 float:none@sm mt:10 mt:0@sm" x-text="item.prices.currency_symbol+new Intl.NumberFormat().format((item.prices.price*item.quantity))"></div>

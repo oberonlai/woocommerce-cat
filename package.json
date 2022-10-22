@@ -15,6 +15,7 @@
     "archive": "wpackio-scripts pack"
   },
   "dependencies": {
+    "@alpinejs/mask": "^3.10.4",
     "@master/css": "^1.35.6",
     "@wpackio/entrypoint": "^6.4.0",
     "alpinejs": "^3.10.2"
