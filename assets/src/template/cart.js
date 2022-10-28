@@ -1,6 +1,6 @@
 export default (homeUrl, nonce) => ({
 	nonce,
-	isCartLoading: true,
+	isCartLoading: false,
 	cart: [],
 	routeCart: homeUrl + '/wp-json/wc/store/v1/cart',
 	routeChecout: homeUrl + '/wp-json/wc/store/v1/checkout',
@@ -9,9 +9,11 @@ export default (homeUrl, nonce) => ({
 	},
 
 	updateQty(type, itemKey, quantity, quantity_limits = null, el = null) {
-		let qty
-		quantity = parseInt(quantity),
-			quantity_limits = parseInt(quantity_limits);
+		let qty;	
+		
+		quantity = parseInt(quantity)
+		quantity_limits = parseInt(quantity_limits)
+		
 		switch (type) {
 			case 'decre':
 				qty = (quantity === 1) ? 1 : quantity - 1
@@ -33,21 +35,13 @@ export default (homeUrl, nonce) => ({
 			this.reqJSON(`${this.routeCart}/update-item`, 'POST', {
 				'key': itemKey,
 				'quantity': qty,
-			}).then(data => { this.cart.items_count = data.items_count })
+			}).then(data => { this.cart = data })
 		}
 
 
 	},
 
-	// 檢查庫存
-	checkStock(type, itemKey) {
-		stockHint = document.getElementById(`stockHint${itemKey}`)
-
-
-	},
-
-	removeItem(itemKey, el) {
-		el.parentElement.style.opacity = "0.5";
+	removeItem(itemKey) {
 		this.reqJSON(`${this.routeCart}/remove-item`, 'POST', {
 			'key': itemKey,
 		}).then(data => this.cart = data)
@@ -82,7 +76,6 @@ export default (homeUrl, nonce) => ({
 	},
 
 	validateInt(evt) {
-		// 檢查庫存
 
 		var theEvent = evt || window.event;
 		if (theEvent.type === 'paste') {

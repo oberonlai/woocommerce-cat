@@ -3,7 +3,7 @@
   "main.css": "app/main.css",
   "main.css.map": "app/main.css.map",
   "main.js": "app/main.js",
-  "main.js.map": "main.2e9a1947437e48973b05.hot-update.js.map",
+  "main.js.map": "main.5a58b233c22fe9f95d4f.hot-update.js.map",
   "runtime.js": "app/runtime.js",
   "runtime.js.map": "app/runtime.js.map",
   "vendors~main.js": "app/vendors~main.js",
@@ -20,7 +20,7 @@
           "app/runtime.js.map",
           "app/vendors~main.js.map",
           "app/main.js.map",
-          "main.2e9a1947437e48973b05.hot-update.js.map"
+          "main.5a58b233c22fe9f95d4f.hot-update.js.map"
         ],
         "css": [
           "app/main.css"

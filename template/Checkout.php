@@ -33,7 +33,7 @@
 					<div>&nbsp;</div>
 				</div>
 				<template x-for="item in cart.items" :key="item.id">
-					<div>
+					<div :id="`item-${item.key}`">
 						<div class="flex jc:space-between ai:center">
 							<div class="w:38% aspect:4/3 r:4) bg:cover" :style="`background-image:url(${item.images[0].src})`">
 							</div>
@@ -52,13 +52,13 @@
 								<input class="bg:fade-90! f:14 w:40 b:1px|solid|fade-80 h:36 t:center mx:7 r:4" type="text" x-model="item.quantity" @keyup="updateQty('change',item.key,$el.value,item.quantity_limits.maximum,$el);" x-mask="999" />
 								<div type="button" class="bg:fade-90:hover" :class="item.quantity >= item.quantity_limits.maximum ? 'pointer-events:none opacity:.5':''" @click.prevent="updateQty('incre',item.key,item.quantity,item.quantity_limits.maximum,$el)">+</div>
 								<template x-if="item.quantity_limits.maximum!==9999">
-									<p :id="`stockHint${item.key}`" class="abs d:none bottom:-38 f:12 f:red t:center w:100%">庫存上限 <span x-text="item.quantity_limits.maximum"></span></p>	
+									<p x-show="item.quantity>=item.quantity_limits.maximum" class="abs bottom:-38 f:12 f:red t:center w:100%">庫存上限 <span x-text="item.quantity_limits.maximum"></span></p>	
 								</template>
 							</div>
 						</div>
 						<div class="float:right f:24 f:red-50 float:none@sm mt:10 mt:0@sm" x-text="item.prices.currency_symbol+new Intl.NumberFormat().format((item.prices.price*item.quantity))"></div>
 						<div class="clear:both d:block d:none@sm"></div>
-						<div class="cursor:pointer p:0! abs top:0 right:5 rel@sm" @click="removeItem(item.key,$el)">
+						<div class="cursor:pointer p:0! abs top:0 right:5 rel@sm" @click.prevent="removeItem(item.key)">
 							<span class="f:red-60">
 								<svg class="w:22 mt:10" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path fill-rule="evenodd" clip-rule="evenodd"
